@@ -3,21 +3,103 @@
 <head>
   <title>SysInfoApp</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <style type="text/css">
+        * {
+          box-sizing: border-box;
+        }
+
+        .clock {
+          display: flex;
+          position: relative;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background-color: black;
+          background-size: cover;
+        }
+
+        .clock > section {
+          width: 100%;
+          padding: 20px;
+          
+        }
+
+        .digital-clock, .date {
+          text-align: center;
+          font-size: 45px;
+          font-weight: bold;
+          color: white;
+          text-transform: uppercase;
+          text-shadow: 2px 1px grey;
+        }
+
+        
+      </style>
 </head>
 <body>
-  <h1>My App</h1>
   <div id="output"></div>
+  <div class="clock">
+        <section>
+          <div id="date" class="date">
+            
+          </div>
+          <div class="digital-clock" id="digital-clock">
+            
+          </div>
+        </section>
+      </div>
   <script>
     console.log(process);
     let output = `
-      <h2 class="page-header">App Version Data</h2>
-      <ul class="list-group">
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
+      <h2 class="page-header" style="margin-left: 40px;">Version Data</h2>
+      <ul class="collection">
+        <li class="collection-item"><blockquote>Node: ${process.versions.node}</blockquote></li>
+        <li class="collection-item"><blockquote>Electron: ${process.versions.electron}</blockquote></li>
+        <li class="collection-item"><blockquote>Chrome: ${process.versions.chrome}</blockquote></li>
       </ul>
     `;
+    document.getElementById("output").innerHTML = output;
   </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js"></script>
+      <script type="text/javascript">
+        const dateElement = document.getElementById('date');
+
+        const digitalTimeElement = document.getElementById('digital-clock');  
+
+        const analogTimeElement = {
+          hours: document.getElementById('hours'),
+          minutes: document.getElementById('minutes'),
+          seconds: document.getElementById('seconds')
+        }
+
+        const getCurrentDate = () => moment().format('MMMM Do, YYYY');
+
+        const getCurrentTime = (type) => {    
+          if (type == 'sec') return moment().format('ss');
+          if (type == 'min') return moment().format('mm');
+          if (type == 'hrs') return moment().format('h'); 
+          return moment().format('h:mm:ss a');
+        }
+          
+        const displayDate = date => {
+          dateElement.innerHTML = date;
+        }
+
+        const displayDigitalTime = time => {
+          digitalTimeElement.innerHTML = time;
+        };
+
+        
+                     
+        const clock = () => {
+          displayDate(getCurrentDate());
+          displayDigitalTime(getCurrentTime());
+          
+        }
+
+
+        setInterval(clock, 1000);
+      </script>
   <script>
     require("./renderer.js");
   </script>
