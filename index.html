@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SysInfoApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+<body>
+  <h1>My App</h1>
+  <div id="output"></div>
+  <script>
+    console.log(process);
+    let output = `
+      <h2 class="page-header">App Version Data</h2>
+      <ul class="list-group">
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+      </ul>
+    `;
+  </script>
+  <script>
+    require("./renderer.js");
+  </script>
+</body>
+</html>
